@@ -33,3 +33,4 @@ app.use('/api/pixel', pixelRoutes);
 
 app.listen(port, ()=> console.log(`Server started at PORT:${port}`))
 
+module.exports = app;
