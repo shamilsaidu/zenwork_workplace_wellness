@@ -22,13 +22,13 @@ app.use(cors({origin: allowedOrigins, credentials: true}))
 
 //API Endpoints
 app.get('/', (req, res)=> res.send("API Working"));
-app.use('/api/auth', authRouter);
-app.use('/api/user', userRouter);
+app.use('/${import.meta.env.VITE_API_URL}/auth', authRouter);
+app.use('/${import.meta.env.VITE_API_URL}/user', userRouter);
 
 // Add near other route uses
-app.use('/api/journal', journalRouter); 
+app.use('/${import.meta.env.VITE_API_URL}/journal', journalRouter); 
 
 // Add this with your other route imports
-app.use('/api/pixel', pixelRoutes);
+app.use('/${import.meta.env.VITE_API_URL}/pixel', pixelRoutes);
 
 module.exports = app;
