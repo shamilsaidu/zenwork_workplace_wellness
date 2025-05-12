@@ -2,40 +2,31 @@
   "version": 2,
   "builds": [
     {
-      "src": "server/server.js",
-      "use": "@vercel/node",
-      "config": { 
-        "includeFiles": ["server/**/*"] 
+      "src": "client/vite.config.js",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "client/dist"
       }
     },
     {
-      "src": "vite.config.js",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+      "src": "server/server.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/${import.meta.env.VITE_API_URL}/(.*)",
-      "dest": "server/server.js"
+      "src": "/api/(.*)",
+      "dest": "/server/server.js"
     },
     {
       "src": "/(.*)",
-      "dest": "dist/$1"
+      "dest": "/client/dist/$1",
+      "headers": {
+        "cache-control": "public, max-age=0, must-revalidate"
+      }
     }
   ],
   "env": {
-    "MONGODB_URI": "mongodb+srv://zenwork:workplacewellness@cluster0.naodw.mongodb.net",
-    "JWT_SECRET": "secret#text",
-    "NODE_ENV": "production",
-    "SMTP_USER": "8b7384001@smtp-brevo.com",
-    "SMTP_PASS": "DvYKRZ7pawFkmdSX",
-    "SENDER_EMAIL": "zenwork25@gmail.com",
-    "COHERE_API_KEY": "30edqrVlk8g8l7A1gBK13kNBZgJj4psYdjsFY7cl",
-    "VITE_BACKEND_URL": "/api",
-    "VITE_GOOGLE_API_KEY": "AIzaSyDnbSexOnxa_BeMuMSE6TsLpkc7wLtlIrM",
-    "VITE_GOOGLE_CLIENT_ID": "759439416934-3fb92urhthe5p2sht3vuicm2rt216hla.apps.googleusercontent.com"
+    "NODE_ENV": "production"
   }
 }
